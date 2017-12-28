@@ -31,6 +31,11 @@ To have your wallpaper automatically be changed, you can add it as a windows tas
 1) Search from the start menu for "Task Scheduler"
 2) Select "Add Basic Task"
 3) Follow the wizard and select this script when it asks you for the program to run
+
+You will need to get a reddit api client ID and secret key from 
+https://www.reddit.com/prefs/apps
+This step is straightforward, just login and click create new app.
+Use this github page for the url redirect and about page.
 """
 
 import praw
@@ -50,8 +55,8 @@ def GetSettings():
         data = {}
         data['subreddit'] = "wallpapers"
         data['posts'] = 5
-        data['client_id'] = "pQSYG63O_PmU2w"
-        data['client_secret'] = "-C0HYBQazVIbNkdr7XkA6caOwzk"
+        data['client_id'] = "PUT IN CLIENT ID HERE"
+        data['client_secret'] = "PUT IN SECRET KEY HERE"
         data['user_agent'] = "001"
         with open(cfg, 'w') as outfile:
             json.dump(data, outfile)
