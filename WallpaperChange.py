@@ -110,7 +110,7 @@ if __name__ == "__main__":
     walls = GetWalls(r, configData['subreddit'], configData['posts'])
     for wall in walls:
         wall['path'] = SavePic(wall['link'], wall['order']+"_"+wall['title'], wall['sub'])
-    SetWallpaper(walls[0]['path'])
+    SetWallpaper(str(walls[0]['path']))
 
 
 
