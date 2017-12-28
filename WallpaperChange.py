@@ -46,6 +46,7 @@ import sys
 import inspect
 import datetime
 import json
+import string
 
 def GetSettings():
     cfg = "config.json"
@@ -79,7 +80,9 @@ def GetWalls(reddit, sub, postNum):
     sortOrder = 1
     for submission in reddit.subreddit(sub).top('day',limit=postNum):
         wall = {}
-        wall['title'] = submission.title.encode('ascii', 'ignore').replace(" ", "_")
+        valid_chars = "-_.() %s%s" % (string.ascii_letters, string.digits)
+        title = submission.title.encode('ascii', 'ignore').replace(" ", "_")
+        wall['title'] = ''.join(c for c in title if c in valid_chars)
         wall['link'] = submission.url
         wall['sub'] = sub
         wall['order'] = str(sortOrder)
@@ -96,6 +99,7 @@ def SavePic(link, title, sub):
     today = str(now.year) + "_" + str(now.month) + "_" + str(now.day)
     MakeDirIfNone(sub+"_"+today)
     fullPath = sub+"_"+today+"/"+title+".jpg"
+    print fullPath
     urllib.urlretrieve(link, fullPath)
     return fullPath
 
